@@ -1,0 +1,304 @@
+{
+  "info": {
+    "name": "Library Management API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:8080"
+    },
+    {
+      "key": "autorId",
+      "value": "1"
+    },
+    {
+      "key": "categorieId",
+      "value": "1"
+    },
+    {
+      "key": "carteId",
+      "value": "1"
+    },
+    {
+      "key": "utilizatorId",
+      "value": "1"
+    },
+    {
+      "key": "imprumutId",
+      "value": "1"
+    }
+  ],
+  "item": [
+    {
+      "name": "Autori",
+      "item": [
+        {
+          "name": "GET autori",
+          "request": {
+            "method": "GET",
+            "url": "{{baseUrl}}/autori"
+          }
+        },
+        {
+          "name": "GET autor by id",
+          "request": {
+            "method": "GET",
+            "url": "{{baseUrl}}/autori/{{autorId}}"
+          }
+        },
+        {
+          "name": "POST autor",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"nume\": \"Mihai Eminescu\"\n}"
+            },
+            "url": "{{baseUrl}}/autori"
+          }
+        },
+        {
+          "name": "PUT autor",
+          "request": {
+            "method": "PUT",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"nume\": \"Ion Creanga\"\n}"
+            },
+            "url": "{{baseUrl}}/autori/{{autorId}}"
+          }
+        },
+        {
+          "name": "DELETE autor",
+          "request": {
+            "method": "DELETE",
+            "url": "{{baseUrl}}/autori/{{autorId}}"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Categorii",
+      "item": [
+        {
+          "name": "GET categorii",
+          "request": {
+            "method": "GET",
+            "url": "{{baseUrl}}/categorii"
+          }
+        },
+        {
+          "name": "GET categorie by id",
+          "request": {
+            "method": "GET",
+            "url": "{{baseUrl}}/categorii/{{categorieId}}"
+          }
+        },
+        {
+          "name": "POST categorie",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"nume\": \"Fictiune\"\n}"
+            },
+            "url": "{{baseUrl}}/categorii"
+          }
+        },
+        {
+          "name": "PUT categorie",
+          "request": {
+            "method": "PUT",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"nume\": \"Istorie\"\n}"
+            },
+            "url": "{{baseUrl}}/categorii/{{categorieId}}"
+          }
+        },
+        {
+          "name": "DELETE categorie",
+          "request": {
+            "method": "DELETE",
+            "url": "{{baseUrl}}/categorii/{{categorieId}}"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Carti",
+      "item": [
+        {
+          "name": "GET carti",
+          "request": {
+            "method": "GET",
+            "url": "{{baseUrl}}/carti"
+          }
+        },
+        {
+          "name": "GET carte by id",
+          "request": {
+            "method": "GET",
+            "url": "{{baseUrl}}/carti/{{carteId}}"
+          }
+        },
+        {
+          "name": "GET carti cautare",
+          "request": {
+            "method": "GET",
+            "url": "{{baseUrl}}/carti/cautare?titlu=Titlu"
+          }
+        },
+        {
+          "name": "POST carte",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"titlu\": \"Luceafarul\",\n  \"stoc\": 5,\n  \"autorId\": {{autorId}},\n  \"categorieId\": {{categorieId}}\n}"
+            },
+            "url": "{{baseUrl}}/carti"
+          }
+        },
+        {
+          "name": "PUT carte",
+          "request": {
+            "method": "PUT",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"titlu\": \"Luceafarul\",\n  \"stoc\": 3,\n  \"autorId\": {{autorId}},\n  \"categorieId\": {{categorieId}}\n}"
+            },
+            "url": "{{baseUrl}}/carti/{{carteId}}"
+          }
+        },
+        {
+          "name": "DELETE carte",
+          "request": {
+            "method": "DELETE",
+            "url": "{{baseUrl}}/carti/{{carteId}}"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Utilizatori",
+      "item": [
+        {
+          "name": "GET utilizatori",
+          "request": {
+            "method": "GET",
+            "url": "{{baseUrl}}/utilizatori"
+          }
+        },
+        {
+          "name": "GET utilizator by id",
+          "request": {
+            "method": "GET",
+            "url": "{{baseUrl}}/utilizatori/{{utilizatorId}}"
+          }
+        },
+        {
+          "name": "POST utilizator",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"nume\": \"Pop\",\n  \"prenume\": \"Ana\",\n  \"email\": \"ana.pop@email.com\",\n  \"telefon\": \"0700000000\",\n  \"adresa\": {\n    \"oras\": \"Bucuresti\",\n    \"strada\": \"Strada 1\",\n    \"codPostal\": \"010101\"\n  }\n}"
+            },
+            "url": "{{baseUrl}}/utilizatori"
+          }
+        },
+        {
+          "name": "PUT utilizator",
+          "request": {
+            "method": "PUT",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"nume\": \"Pop\",\n  \"prenume\": \"Ana\",\n  \"email\": \"ana.pop@email.com\",\n  \"telefon\": \"0700000000\",\n  \"adresa\": {\n    \"oras\": \"Bucuresti\",\n    \"strada\": \"Strada 1\",\n    \"codPostal\": \"010101\"\n  }\n}"
+            },
+            "url": "{{baseUrl}}/utilizatori/{{utilizatorId}}"
+          }
+        },
+        {
+          "name": "DELETE utilizator",
+          "request": {
+            "method": "DELETE",
+            "url": "{{baseUrl}}/utilizatori/{{utilizatorId}}"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Imprumuturi",
+      "item": [
+        {
+          "name": "GET imprumuturi",
+          "request": {
+            "method": "GET",
+            "url": "{{baseUrl}}/imprumuturi"
+          }
+        },
+        {
+          "name": "GET imprumut by id",
+          "request": {
+            "method": "GET",
+            "url": "{{baseUrl}}/imprumuturi/{{imprumutId}}"
+          }
+        },
+        {
+          "name": "POST imprumut",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"utilizatorId\": {{utilizatorId}},\n  \"carteId\": {{carteId}}\n}"
+            },
+            "url": "{{baseUrl}}/imprumuturi"
+          }
+        },
+        {
+          "name": "POST returnare",
+          "request": {
+            "method": "POST",
+            "url": "{{baseUrl}}/imprumuturi/{{imprumutId}}/returnare"
+          }
+        },
+        {
+          "name": "GET istoric utilizator",
+          "request": {
+            "method": "GET",
+            "url": "{{baseUrl}}/imprumuturi/istoric/{{utilizatorId}}"
+          }
+        }
+      ]
+    }
+  ]
+}
