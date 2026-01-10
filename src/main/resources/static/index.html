@@ -1,0 +1,938 @@
+<!doctype html>
+<html lang="ro">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Biblioteca - Interfata</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Newsreader:wght@400;600&family=Space+Grotesk:wght@400;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --bg: #f5efe3;
+        --panel: #fff8ef;
+        --ink: #1f1f1f;
+        --muted: #6b6b6b;
+        --accent: #1f6f78;
+        --accent-2: #e0a458;
+        --border: #e6d8c5;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        font-family: "Space Grotesk", "Trebuchet MS", sans-serif;
+        color: var(--ink);
+        background: radial-gradient(1200px 600px at 10% -10%, #fdf6ea, var(--bg));
+      }
+
+      header {
+        padding: 32px 24px 16px;
+        text-align: center;
+      }
+
+      header h1 {
+        margin: 0;
+        font-family: "Newsreader", "Times New Roman", serif;
+        font-size: clamp(28px, 4vw, 44px);
+        letter-spacing: 0.5px;
+      }
+
+      header p {
+        margin: 8px auto 0;
+        max-width: 720px;
+        color: var(--muted);
+      }
+
+      main {
+        max-width: 1100px;
+        margin: 0 auto;
+        padding: 24px;
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 18px;
+      }
+
+      .panel {
+        background: var(--panel);
+        border: 1px solid var(--border);
+        border-radius: 16px;
+        padding: 18px;
+        min-height: 260px;
+        box-shadow: 0 10px 30px rgba(31, 111, 120, 0.08);
+        animation: rise 0.6s ease both;
+      }
+
+      .panel h2 {
+        margin: 0 0 12px;
+        font-size: 18px;
+      }
+
+      .panel small {
+        color: var(--muted);
+      }
+
+      .error {
+        color: #b63b2b;
+        font-size: 12px;
+        margin-top: 4px;
+        display: none;
+      }
+
+      .error.show {
+        display: block;
+      }
+
+      label {
+        display: block;
+        font-size: 12px;
+        margin-bottom: 4px;
+        color: var(--muted);
+      }
+
+      input,
+      button,
+      textarea {
+        width: 100%;
+        padding: 8px 10px;
+        border-radius: 10px;
+        border: 1px solid var(--border);
+        font-family: inherit;
+      }
+
+      input:focus,
+      textarea:focus {
+        outline: 2px solid rgba(31, 111, 120, 0.2);
+      }
+
+      button {
+        margin-top: 8px;
+        background: var(--accent);
+        color: white;
+        font-weight: 600;
+        border: none;
+        cursor: pointer;
+        transition: transform 0.15s ease, box-shadow 0.15s ease;
+      }
+
+      button:hover {
+        transform: translateY(-1px);
+        box-shadow: 0 8px 18px rgba(31, 111, 120, 0.2);
+      }
+
+      .list {
+        margin-top: 12px;
+        font-size: 13px;
+        color: var(--muted);
+        line-height: 1.5;
+        max-height: 180px;
+        overflow: auto;
+        padding-right: 4px;
+      }
+
+      .row {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 10px;
+      }
+
+      .status {
+        max-width: 1100px;
+        margin: 0 auto 12px;
+        padding: 0 24px;
+        color: var(--muted);
+        font-size: 12px;
+      }
+
+      .pill {
+        display: inline-block;
+        background: rgba(224, 164, 88, 0.2);
+        color: #6b3e1e;
+        padding: 2px 8px;
+        border-radius: 12px;
+        font-size: 11px;
+        margin-bottom: 6px;
+      }
+
+      @keyframes rise {
+        from {
+          opacity: 0;
+          transform: translateY(12px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      @media (max-width: 680px) {
+        main {
+          grid-template-columns: 1fr;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <h1>Sistem de management al bibliotecii</h1>
+      <p>
+        Interfata pentru gestionarea utilizatorilor, cartilor, autorilor, categoriilor si imprumuturilor.
+      </p>
+    </header>
+
+    <div class="status" id="status">Status: gata.</div>
+
+    <main>
+      <section class="panel">
+        <span class="pill">Autori</span>
+        <h2>Adauga autor</h2>
+        <form id="autor-form">
+          <label for="autor-nume">Nume</label>
+          <input id="autor-nume" name="autor-nume" required />
+          <button type="submit">Salveaza</button>
+        </form>
+        <div class="list" id="autori-list">Incarcare...</div>
+        <h2 style="margin-top: 14px;">Cauta autor dupa ID</h2>
+        <form id="autor-get-form">
+          <label for="autor-id-get">Autor ID</label>
+          <input id="autor-id-get" type="number" required />
+          <button type="submit">Cauta</button>
+        </form>
+        <div class="list" id="autor-detail">Niciun rezultat.</div>
+        <h2 style="margin-top: 14px;">Actualizeaza autor</h2>
+        <form id="autor-update-form">
+          <label for="autor-id-update">Autor ID</label>
+          <input id="autor-id-update" type="number" required />
+          <label for="autor-nume-update">Nume</label>
+          <input id="autor-nume-update" required />
+          <button type="submit">Actualizeaza</button>
+        </form>
+        <h2 style="margin-top: 14px;">Sterge autor</h2>
+        <form id="autor-delete-form">
+          <label for="autor-id-delete">Autor ID</label>
+          <input id="autor-id-delete" type="number" required />
+          <button type="submit">Sterge</button>
+        </form>
+      </section>
+
+      <section class="panel">
+        <span class="pill">Categorii</span>
+        <h2>Adauga categorie</h2>
+        <form id="categorie-form">
+          <label for="categorie-nume">Nume</label>
+          <input id="categorie-nume" name="categorie-nume" required />
+          <button type="submit">Salveaza</button>
+        </form>
+        <div class="list" id="categorii-list">Incarcare...</div>
+        <h2 style="margin-top: 14px;">Cauta categorie dupa ID</h2>
+        <form id="categorie-get-form">
+          <label for="categorie-id-get">Categorie ID</label>
+          <input id="categorie-id-get" type="number" required />
+          <button type="submit">Cauta</button>
+        </form>
+        <div class="list" id="categorie-detail">Niciun rezultat.</div>
+        <h2 style="margin-top: 14px;">Actualizeaza categorie</h2>
+        <form id="categorie-update-form">
+          <label for="categorie-id-update">Categorie ID</label>
+          <input id="categorie-id-update" type="number" required />
+          <label for="categorie-nume-update">Nume</label>
+          <input id="categorie-nume-update" required />
+          <button type="submit">Actualizeaza</button>
+        </form>
+        <h2 style="margin-top: 14px;">Sterge categorie</h2>
+        <form id="categorie-delete-form">
+          <label for="categorie-id-delete">Categorie ID</label>
+          <input id="categorie-id-delete" type="number" required />
+          <button type="submit">Sterge</button>
+        </form>
+      </section>
+
+      <section class="panel">
+        <span class="pill">Carti</span>
+        <h2>Adauga carte</h2>
+        <form id="carte-form">
+          <label for="carte-titlu">Titlu</label>
+          <input id="carte-titlu" name="carte-titlu" required />
+          <div class="row">
+            <div>
+              <label for="carte-stoc">Stoc</label>
+              <input id="carte-stoc" name="carte-stoc" type="number" min="0" required />
+            </div>
+            <div>
+              <label for="carte-autor">Autor ID</label>
+              <input id="carte-autor" name="carte-autor" type="number" required />
+            </div>
+          </div>
+          <label for="carte-categorie">Categorie ID</label>
+          <input id="carte-categorie" name="carte-categorie" type="number" required />
+          <button type="submit">Salveaza</button>
+        </form>
+        <div class="list" id="carti-list">Incarcare...</div>
+        <h2 style="margin-top: 14px;">Cauta carte dupa ID</h2>
+        <form id="carte-get-form">
+          <label for="carte-id-get">Carte ID</label>
+          <input id="carte-id-get" type="number" required />
+          <button type="submit">Cauta</button>
+        </form>
+        <div class="list" id="carte-detail">Niciun rezultat.</div>
+        <h2 style="margin-top: 14px;">Cauta carti dupa titlu</h2>
+        <form id="carte-search-form">
+          <label for="carte-titlu-search">Titlu</label>
+          <input id="carte-titlu-search" required />
+          <button type="submit">Cauta</button>
+        </form>
+        <div class="list" id="carti-search-list">Niciun rezultat.</div>
+        <h2 style="margin-top: 14px;">Actualizeaza carte</h2>
+        <form id="carte-update-form">
+          <label for="carte-id-update">Carte ID</label>
+          <input id="carte-id-update" type="number" required />
+          <label for="carte-titlu-update">Titlu</label>
+          <input id="carte-titlu-update" required />
+          <div class="row">
+            <div>
+              <label for="carte-stoc-update">Stoc</label>
+              <input id="carte-stoc-update" name="carte-stoc-update" type="number" min="0" required />
+            </div>
+            <div>
+              <label for="carte-autor-update">Autor ID</label>
+              <input id="carte-autor-update" name="carte-autor-update" type="number" required />
+            </div>
+          </div>
+          <label for="carte-categorie-update">Categorie ID</label>
+          <input id="carte-categorie-update" name="carte-categorie-update" type="number" required />
+          <button type="submit">Actualizeaza</button>
+        </form>
+        <h2 style="margin-top: 14px;">Sterge carte</h2>
+        <form id="carte-delete-form">
+          <label for="carte-id-delete">Carte ID</label>
+          <input id="carte-id-delete" type="number" required />
+          <button type="submit">Sterge</button>
+        </form>
+      </section>
+
+      <section class="panel">
+        <span class="pill">Utilizatori</span>
+        <h2>Adauga utilizator</h2>
+        <form id="utilizator-form">
+          <div class="row">
+            <div>
+              <label for="utilizator-nume">Nume</label>
+              <input id="utilizator-nume" required />
+            </div>
+            <div>
+              <label for="utilizator-prenume">Prenume</label>
+              <input id="utilizator-prenume" required />
+            </div>
+          </div>
+          <label for="utilizator-email">Email</label>
+          <input id="utilizator-email" type="email" required />
+          <small class="error" id="utilizator-email-error"></small>
+          <label for="utilizator-telefon">Telefon</label>
+          <input
+            id="utilizator-telefon"
+            required
+            pattern="^0\\d{9}$"
+            inputmode="numeric"
+            title="Telefonul trebuie sa aiba 10 cifre si sa inceapa cu 0"
+          />
+          <small class="error" id="utilizator-telefon-error"></small>
+          <div class="row">
+            <div>
+              <label for="utilizator-oras">Oras</label>
+              <input id="utilizator-oras" required />
+            </div>
+            <div>
+              <label for="utilizator-strada">Strada</label>
+              <input id="utilizator-strada" required />
+            </div>
+          </div>
+          <label for="utilizator-cod">Cod postal</label>
+          <input id="utilizator-cod" />
+          <button type="submit">Salveaza</button>
+        </form>
+        <div class="list" id="utilizatori-list">Incarcare...</div>
+        <h2 style="margin-top: 14px;">Cauta utilizator dupa ID</h2>
+        <form id="utilizator-get-form">
+          <label for="utilizator-id-get">Utilizator ID</label>
+          <input id="utilizator-id-get" type="number" required />
+          <button type="submit">Cauta</button>
+        </form>
+        <div class="list" id="utilizator-detail">Niciun rezultat.</div>
+        <h2 style="margin-top: 14px;">Actualizeaza utilizator</h2>
+        <form id="utilizator-update-form">
+          <label for="utilizator-id-update">Utilizator ID</label>
+          <input id="utilizator-id-update" type="number" required />
+          <div class="row">
+            <div>
+              <label for="utilizator-nume-update">Nume</label>
+              <input id="utilizator-nume-update" required />
+            </div>
+            <div>
+              <label for="utilizator-prenume-update">Prenume</label>
+              <input id="utilizator-prenume-update" required />
+            </div>
+          </div>
+          <label for="utilizator-email-update">Email</label>
+          <input id="utilizator-email-update" type="email" required />
+          <small class="error" id="utilizator-email-update-error"></small>
+          <label for="utilizator-telefon-update">Telefon</label>
+          <input
+            id="utilizator-telefon-update"
+            required
+            pattern="^0\\d{9}$"
+            inputmode="numeric"
+            title="Telefonul trebuie sa aiba 10 cifre si sa inceapa cu 0"
+          />
+          <small class="error" id="utilizator-telefon-update-error"></small>
+          <div class="row">
+            <div>
+              <label for="utilizator-oras-update">Oras</label>
+              <input id="utilizator-oras-update" required />
+            </div>
+            <div>
+              <label for="utilizator-strada-update">Strada</label>
+              <input id="utilizator-strada-update" required />
+            </div>
+          </div>
+          <label for="utilizator-cod-update">Cod postal</label>
+          <input id="utilizator-cod-update" />
+          <button type="submit">Actualizeaza</button>
+        </form>
+        <h2 style="margin-top: 14px;">Sterge utilizator</h2>
+        <form id="utilizator-delete-form">
+          <label for="utilizator-id-delete">Utilizator ID</label>
+          <input id="utilizator-id-delete" type="number" required />
+          <button type="submit">Sterge</button>
+        </form>
+      </section>
+
+      <section class="panel">
+        <span class="pill">Imprumuturi</span>
+        <h2>Imprumuta carte</h2>
+        <form id="imprumut-form">
+          <label for="imprumut-utilizator">Utilizator ID</label>
+          <input id="imprumut-utilizator" type="number" required />
+          <label for="imprumut-carte">Carte ID</label>
+          <input id="imprumut-carte" type="number" required />
+          <button type="submit">Imprumuta</button>
+        </form>
+        <h2 style="margin-top: 14px;">Returnare</h2>
+        <form id="returnare-form">
+          <label for="returnare-id">Imprumut ID</label>
+          <input id="returnare-id" type="number" required />
+          <button type="submit">Returneaza</button>
+        </form>
+        <div class="list" id="imprumuturi-list">Incarcare...</div>
+        <h2 style="margin-top: 14px;">Cauta imprumut dupa ID</h2>
+        <form id="imprumut-get-form">
+          <label for="imprumut-id-get">Imprumut ID</label>
+          <input id="imprumut-id-get" type="number" required />
+          <button type="submit">Cauta</button>
+        </form>
+        <div class="list" id="imprumut-detail">Niciun rezultat.</div>
+      </section>
+
+      <section class="panel">
+        <span class="pill">Istoric</span>
+        <h2>Istoric utilizator</h2>
+        <form id="istoric-form">
+          <label for="istoric-utilizator">Utilizator ID</label>
+          <input id="istoric-utilizator" type="number" required />
+          <button type="submit">Cauta</button>
+        </form>
+        <div class="list" id="istoric-list">Niciun rezultat.</div>
+      </section>
+    </main>
+
+    <script>
+      const statusEl = document.getElementById("status");
+
+      const api = {
+        async request(path, options = {}) {
+          const response = await fetch(path, options);
+          if (!response.ok) {
+            const text = await response.text();
+            throw new Error(text || "Eroare de server");
+          }
+          if (response.status === 204) {
+            return null;
+          }
+          return response.json();
+        },
+        get(path) {
+          return this.request(path);
+        },
+        post(path, body) {
+          return this.request(path, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(body),
+          });
+        },
+        put(path, body) {
+          return this.request(path, {
+            method: "PUT",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(body),
+          });
+        },
+        del(path) {
+          return this.request(path, { method: "DELETE" });
+        },
+      };
+
+      function setStatus(message, isError = false) {
+        statusEl.textContent = `Status: ${message}`;
+        statusEl.style.color = isError ? "#b63b2b" : "var(--muted)";
+      }
+
+      function renderList(containerId, items, mapper) {
+        const el = document.getElementById(containerId);
+        if (!items || items.length === 0) {
+          el.textContent = "Niciun rezultat.";
+          return;
+        }
+        el.innerHTML = items.map(mapper).join("<br/>");
+      }
+
+      function renderSingle(containerId, item, mapper) {
+        const el = document.getElementById(containerId);
+        if (!item) {
+          el.textContent = "Niciun rezultat.";
+          return;
+        }
+        el.innerHTML = mapper(item);
+      }
+
+      function bindValidationMessage(inputId, messageId, messageFn) {
+        const input = document.getElementById(inputId);
+        const message = document.getElementById(messageId);
+        if (!input || !message) {
+          return;
+        }
+
+        const update = () => {
+          const text = messageFn(input);
+          if (text) {
+            input.setCustomValidity(text);
+            message.textContent = text;
+            message.classList.add("show");
+          } else {
+            input.setCustomValidity("");
+            message.textContent = "";
+            message.classList.remove("show");
+          }
+        };
+
+        input.addEventListener("input", update);
+        input.addEventListener("blur", update);
+        input.addEventListener("invalid", (event) => {
+          event.preventDefault();
+          update();
+        });
+      }
+
+      function formatAutor(autor) {
+        return `#${autor.id} - ${autor.nume}`;
+      }
+
+      function formatCategorie(categorie) {
+        return `#${categorie.id} - ${categorie.nume}`;
+      }
+
+      function formatCarte(carte) {
+        return `#${carte.id} - ${carte.titlu} | stoc: ${carte.stoc} | autor: ${carte.autor?.nume || "-"} | categorie: ${
+          carte.categorie?.nume || "-"
+        }`;
+      }
+
+      function formatUtilizator(utilizator) {
+        return `#${utilizator.id} - ${utilizator.nume} ${utilizator.prenume} | ${utilizator.email} | ${utilizator.telefon} | ${
+          utilizator.adresa?.oras || "-"
+        }`;
+      }
+
+      function formatImprumut(imprumut) {
+        return `#${imprumut.id} - utilizator: ${imprumut.utilizator?.id} | carte: ${imprumut.carte?.id} | ${
+          imprumut.dataImprumut
+        } -> ${imprumut.dataRetur || "activ"}`;
+      }
+
+      function setupValidationMessages() {
+        const emailMessage = (input) => {
+          if (input.validity.valueMissing) {
+            return "Emailul este obligatoriu.";
+          }
+          if (input.validity.typeMismatch) {
+            return "Emailul nu este valid.";
+          }
+          return "";
+        };
+
+        const phoneMessage = (input) => {
+          if (input.validity.valueMissing) {
+            return "Telefonul este obligatoriu.";
+          }
+          if (input.validity.patternMismatch) {
+            return "Telefonul trebuie sa aiba 10 cifre si sa inceapa cu 0.";
+          }
+          return "";
+        };
+
+        bindValidationMessage("utilizator-email", "utilizator-email-error", emailMessage);
+        bindValidationMessage("utilizator-email-update", "utilizator-email-update-error", emailMessage);
+        bindValidationMessage("utilizator-telefon", "utilizator-telefon-error", phoneMessage);
+        bindValidationMessage("utilizator-telefon-update", "utilizator-telefon-update-error", phoneMessage);
+      }
+
+      async function loadAutori() {
+        const data = await api.get("/autori");
+        renderList("autori-list", data, formatAutor);
+      }
+
+      async function loadCategorii() {
+        const data = await api.get("/categorii");
+        renderList("categorii-list", data, formatCategorie);
+      }
+
+      async function loadCarti() {
+        const data = await api.get("/carti");
+        renderList("carti-list", data, formatCarte);
+      }
+
+      async function loadUtilizatori() {
+        const data = await api.get("/utilizatori");
+        renderList("utilizatori-list", data, formatUtilizator);
+      }
+
+      async function loadImprumuturi() {
+        const data = await api.get("/imprumuturi");
+        renderList("imprumuturi-list", data, formatImprumut);
+      }
+
+      async function init() {
+        try {
+          await Promise.all([loadAutori(), loadCategorii(), loadCarti(), loadUtilizatori(), loadImprumuturi()]);
+          setStatus("date incarcate.");
+        } catch (error) {
+          setStatus(error.message, true);
+        }
+      }
+
+      document.getElementById("autor-form").addEventListener("submit", async (event) => {
+        event.preventDefault();
+        try {
+          await api.post("/autori", { nume: document.getElementById("autor-nume").value });
+          event.target.reset();
+          await loadAutori();
+          setStatus("autor salvat.");
+        } catch (error) {
+          setStatus(error.message, true);
+        }
+      });
+
+      document.getElementById("autor-get-form").addEventListener("submit", async (event) => {
+        event.preventDefault();
+        try {
+          const id = Number(document.getElementById("autor-id-get").value);
+          const data = await api.get(`/autori/${id}`);
+          renderSingle("autor-detail", data, formatAutor);
+          setStatus("autor incarcat.");
+        } catch (error) {
+          renderSingle("autor-detail", null, formatAutor);
+          setStatus(error.message, true);
+        }
+      });
+
+      document.getElementById("autor-update-form").addEventListener("submit", async (event) => {
+        event.preventDefault();
+        try {
+          const id = Number(document.getElementById("autor-id-update").value);
+          await api.put(`/autori/${id}`, { nume: document.getElementById("autor-nume-update").value });
+          event.target.reset();
+          await loadAutori();
+          setStatus("autor actualizat.");
+        } catch (error) {
+          setStatus(error.message, true);
+        }
+      });
+
+      document.getElementById("autor-delete-form").addEventListener("submit", async (event) => {
+        event.preventDefault();
+        try {
+          const id = Number(document.getElementById("autor-id-delete").value);
+          await api.del(`/autori/${id}`);
+          event.target.reset();
+          await loadAutori();
+          renderSingle("autor-detail", null, formatAutor);
+          setStatus("autor sters.");
+        } catch (error) {
+          setStatus(error.message, true);
+        }
+      });
+
+      document.getElementById("categorie-form").addEventListener("submit", async (event) => {
+        event.preventDefault();
+        try {
+          await api.post("/categorii", { nume: document.getElementById("categorie-nume").value });
+          event.target.reset();
+          await loadCategorii();
+          setStatus("categorie salvata.");
+        } catch (error) {
+          setStatus(error.message, true);
+        }
+      });
+
+      document.getElementById("categorie-get-form").addEventListener("submit", async (event) => {
+        event.preventDefault();
+        try {
+          const id = Number(document.getElementById("categorie-id-get").value);
+          const data = await api.get(`/categorii/${id}`);
+          renderSingle("categorie-detail", data, formatCategorie);
+          setStatus("categorie incarcata.");
+        } catch (error) {
+          renderSingle("categorie-detail", null, formatCategorie);
+          setStatus(error.message, true);
+        }
+      });
+
+      document.getElementById("categorie-update-form").addEventListener("submit", async (event) => {
+        event.preventDefault();
+        try {
+          const id = Number(document.getElementById("categorie-id-update").value);
+          await api.put(`/categorii/${id}`, { nume: document.getElementById("categorie-nume-update").value });
+          event.target.reset();
+          await loadCategorii();
+          setStatus("categorie actualizata.");
+        } catch (error) {
+          setStatus(error.message, true);
+        }
+      });
+
+      document.getElementById("categorie-delete-form").addEventListener("submit", async (event) => {
+        event.preventDefault();
+        try {
+          const id = Number(document.getElementById("categorie-id-delete").value);
+          await api.del(`/categorii/${id}`);
+          event.target.reset();
+          await loadCategorii();
+          renderSingle("categorie-detail", null, formatCategorie);
+          setStatus("categorie stearsa.");
+        } catch (error) {
+          setStatus(error.message, true);
+        }
+      });
+
+      document.getElementById("carte-form").addEventListener("submit", async (event) => {
+        event.preventDefault();
+        try {
+          await api.post("/carti", {
+            titlu: document.getElementById("carte-titlu").value,
+            stoc: Number(document.getElementById("carte-stoc").value),
+            autorId: Number(document.getElementById("carte-autor").value),
+            categorieId: Number(document.getElementById("carte-categorie").value),
+          });
+          event.target.reset();
+          await loadCarti();
+          setStatus("carte salvata.");
+        } catch (error) {
+          setStatus(error.message, true);
+        }
+      });
+
+      document.getElementById("carte-get-form").addEventListener("submit", async (event) => {
+        event.preventDefault();
+        try {
+          const id = Number(document.getElementById("carte-id-get").value);
+          const data = await api.get(`/carti/${id}`);
+          renderSingle("carte-detail", data, formatCarte);
+          setStatus("carte incarcata.");
+        } catch (error) {
+          renderSingle("carte-detail", null, formatCarte);
+          setStatus(error.message, true);
+        }
+      });
+
+      document.getElementById("carte-search-form").addEventListener("submit", async (event) => {
+        event.preventDefault();
+        try {
+          const titlu = document.getElementById("carte-titlu-search").value;
+          const data = await api.get(`/carti/cautare?titlu=${encodeURIComponent(titlu)}`);
+          renderList("carti-search-list", data, formatCarte);
+          setStatus("carti incarcate.");
+        } catch (error) {
+          renderList("carti-search-list", [], formatCarte);
+          setStatus(error.message, true);
+        }
+      });
+
+      document.getElementById("carte-update-form").addEventListener("submit", async (event) => {
+        event.preventDefault();
+        try {
+          const id = Number(document.getElementById("carte-id-update").value);
+          await api.put(`/carti/${id}`, {
+            titlu: document.getElementById("carte-titlu-update").value,
+            stoc: Number(document.getElementById("carte-stoc-update").value),
+            autorId: Number(document.getElementById("carte-autor-update").value),
+            categorieId: Number(document.getElementById("carte-categorie-update").value),
+          });
+          event.target.reset();
+          await loadCarti();
+          setStatus("carte actualizata.");
+        } catch (error) {
+          setStatus(error.message, true);
+        }
+      });
+
+      document.getElementById("carte-delete-form").addEventListener("submit", async (event) => {
+        event.preventDefault();
+        try {
+          const id = Number(document.getElementById("carte-id-delete").value);
+          await api.del(`/carti/${id}`);
+          event.target.reset();
+          await loadCarti();
+          renderSingle("carte-detail", null, formatCarte);
+          setStatus("carte stearsa.");
+        } catch (error) {
+          setStatus(error.message, true);
+        }
+      });
+
+      document.getElementById("utilizator-form").addEventListener("submit", async (event) => {
+        event.preventDefault();
+        try {
+          await api.post("/utilizatori", {
+            nume: document.getElementById("utilizator-nume").value,
+            prenume: document.getElementById("utilizator-prenume").value,
+            email: document.getElementById("utilizator-email").value,
+            telefon: document.getElementById("utilizator-telefon").value,
+            adresa: {
+              oras: document.getElementById("utilizator-oras").value,
+              strada: document.getElementById("utilizator-strada").value,
+              codPostal: document.getElementById("utilizator-cod").value || null,
+            },
+          });
+          event.target.reset();
+          await loadUtilizatori();
+          setStatus("utilizator salvat.");
+        } catch (error) {
+          setStatus(error.message, true);
+        }
+      });
+
+      document.getElementById("utilizator-get-form").addEventListener("submit", async (event) => {
+        event.preventDefault();
+        try {
+          const id = Number(document.getElementById("utilizator-id-get").value);
+          const data = await api.get(`/utilizatori/${id}`);
+          renderSingle("utilizator-detail", data, formatUtilizator);
+          setStatus("utilizator incarcat.");
+        } catch (error) {
+          renderSingle("utilizator-detail", null, formatUtilizator);
+          setStatus(error.message, true);
+        }
+      });
+
+      document.getElementById("utilizator-update-form").addEventListener("submit", async (event) => {
+        event.preventDefault();
+        try {
+          const id = Number(document.getElementById("utilizator-id-update").value);
+          await api.put(`/utilizatori/${id}`, {
+            nume: document.getElementById("utilizator-nume-update").value,
+            prenume: document.getElementById("utilizator-prenume-update").value,
+            email: document.getElementById("utilizator-email-update").value,
+            telefon: document.getElementById("utilizator-telefon-update").value,
+            adresa: {
+              oras: document.getElementById("utilizator-oras-update").value,
+              strada: document.getElementById("utilizator-strada-update").value,
+              codPostal: document.getElementById("utilizator-cod-update").value || null,
+            },
+          });
+          event.target.reset();
+          await loadUtilizatori();
+          setStatus("utilizator actualizat.");
+        } catch (error) {
+          setStatus(error.message, true);
+        }
+      });
+
+      document.getElementById("utilizator-delete-form").addEventListener("submit", async (event) => {
+        event.preventDefault();
+        try {
+          const id = Number(document.getElementById("utilizator-id-delete").value);
+          await api.del(`/utilizatori/${id}`);
+          event.target.reset();
+          await loadUtilizatori();
+          renderSingle("utilizator-detail", null, formatUtilizator);
+          setStatus("utilizator sters.");
+        } catch (error) {
+          setStatus(error.message, true);
+        }
+      });
+
+      document.getElementById("imprumut-form").addEventListener("submit", async (event) => {
+        event.preventDefault();
+        try {
+          await api.post("/imprumuturi", {
+            utilizatorId: Number(document.getElementById("imprumut-utilizator").value),
+            carteId: Number(document.getElementById("imprumut-carte").value),
+          });
+          event.target.reset();
+          await loadImprumuturi();
+          await loadCarti();
+          setStatus("imprumut creat.");
+        } catch (error) {
+          setStatus(error.message, true);
+        }
+      });
+
+      document.getElementById("returnare-form").addEventListener("submit", async (event) => {
+        event.preventDefault();
+        try {
+          const id = Number(document.getElementById("returnare-id").value);
+          await api.post(`/imprumuturi/${id}/returnare`);
+          event.target.reset();
+          await loadImprumuturi();
+          await loadCarti();
+          setStatus("imprumut returnat.");
+        } catch (error) {
+          setStatus(error.message, true);
+        }
+      });
+
+      document.getElementById("imprumut-get-form").addEventListener("submit", async (event) => {
+        event.preventDefault();
+        try {
+          const id = Number(document.getElementById("imprumut-id-get").value);
+          const data = await api.get(`/imprumuturi/${id}`);
+          renderSingle("imprumut-detail", data, formatImprumut);
+          setStatus("imprumut incarcat.");
+        } catch (error) {
+          renderSingle("imprumut-detail", null, formatImprumut);
+          setStatus(error.message, true);
+        }
+      });
+
+      document.getElementById("istoric-form").addEventListener("submit", async (event) => {
+        event.preventDefault();
+        try {
+          const id = Number(document.getElementById("istoric-utilizator").value);
+          const data = await api.get(`/imprumuturi/istoric/${id}`);
+          renderList("istoric-list", data, formatImprumut);
+          setStatus("istoric incarcat.");
+        } catch (error) {
+          setStatus(error.message, true);
+        }
+      });
+
+      setupValidationMessages();
+      init();
+    </script>
+  </body>
+</html>
