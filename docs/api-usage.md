@@ -1,9 +1,9 @@
-# Documentatie utilizare API
+# Documentație utilizare API
 
-## Pornire aplicatie
-1) Porneste MySQL si asigura-te ca schema `library` exista.
-2) Verifica `src/main/resources/application.properties` pentru datele de conectare.
-3) Ruleaza aplicatia:
+## Pornire aplicație
+1) Pornește MySQL și asigură-te că schema `library` există.
+2) Verifică `src/main/resources/application.properties` pentru datele de conectare.
+3) Rulează aplicația:
    - IntelliJ: Run `LibraryManagementApplication`
    - CLI: `mvnw.cmd spring-boot:run`
 
@@ -60,7 +60,7 @@ Body:
 { "nume": "Fictiune" }
 ```
 
-### Carti
+### Cărți
 - `GET /carti`
 - `GET /carti/{id}`
 - `GET /carti/cautare?titlu=...`
@@ -78,14 +78,14 @@ Body:
 }
 ```
 
-### Imprumuturi
+### Împrumuturi
 - `GET /imprumuturi`
 - `GET /imprumuturi/{id}`
 - `POST /imprumuturi`
 - `POST /imprumuturi/{id}/returnare`
 - `GET /imprumuturi/istoric/{utilizatorId}`
 
-Body (imprumut):
+Body (împrumut):
 ```json
 {
   "utilizatorId": 1,
@@ -94,12 +94,12 @@ Body (imprumut):
 ```
 
 ## Flux recomandat
-1) Creeaza autor si categorie.
-2) Creeaza carte cu `autorId` si `categorieId`.
-3) Creeaza utilizator cu adresa.
-4) Fa imprumut, apoi returnare.
-5) Verifica istoricul utilizatorului.
+1) Creează autor și categorie.
+2) Creează carte cu `autorId` și `categorieId`.
+3) Creează utilizator cu adresa.
+4) Fă împrumut, apoi returnare.
+5) Verifică istoricul utilizatorului.
 
 ## Postman
-Importa colectia din `docs/postman/library-management.postman_collection.json`.
-Seteaza variabila `baseUrl` la `http://localhost:8080`.
+Importă colecția din `docs/postman/library-management.postman_collection.json`.
+Setează variabila `baseUrl` la `http://localhost:8080`.

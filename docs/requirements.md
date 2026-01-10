@@ -1,23 +1,23 @@
-# Sistem de Management al Bibliotecii - Cerinte si MVP
+# Sistem de management al bibliotecii - Cerințe și MVP
 
-## Prezentare generala
-Aplicatie backend pentru gestionarea utilizatorilor, cartilor si imprumuturilor, cu evidenta stocului si a istoricului.
+## Prezentare generală
+Aplicație backend pentru gestionarea utilizatorilor, cărților și împrumuturilor, cu evidența stocului și a istoricului.
 
-## Cerinte de business (10)
-1. Sistemul trebuie sa permita crearea si gestionarea utilizatorilor.
-2. Sistemul trebuie sa permita adaugarea si gestionarea cartilor.
-3. Fiecare carte trebuie sa apartina unei singure categorii.
-4. Fiecare carte trebuie sa aiba exact un autor.
-5. O carte poate fi imprumutata doar daca stocul este mai mare decat 0.
-6. La imprumutarea unei carti, stocul trebuie decrementat.
-7. La returnarea unei carti, stocul trebuie incrementat.
-8. Un utilizator nu poate imprumuta mai mult de 5 carti simultan.
-9. Sistemul trebuie sa pastreze istoricul complet al imprumuturilor.
-10. Sistemul trebuie sa valideze datele introduse (de ex. email valid, stoc >= 0).
+## Cerințe de business (10)
+1. Sistemul trebuie să permită crearea utilizatorilor.
+2. Sistemul trebuie să permită adăugarea și gestionarea cărților.
+3. Fiecare carte trebuie să aparțină unei singure categorii.
+4. Fiecare carte trebuie să aibă exact un autor.
+5. O carte poate fi împrumutată doar dacă stocul este mai mare decât 0.
+6. La împrumutarea unei cărți, stocul de cărți trebuie decrementat.
+7. La returnarea unei cărți, stocul de cărți trebuie incrementat.
+8. Un utilizator nu poate împrumuta mai mult de 5 cărți simultan.
+9. Sistemul trebuie să păstreze istoricul complet al împrumuturilor.
+10. Sistemul trebuie să valideze datele introduse (de ex. email valid, stoc >= 0).
 
-## Functionalitati MVP (5)
-1. Gestionare utilizatori: creare, actualizare, listare, stergere.
-2. Gestionare carti: creare carte, asociere autor/categorie, gestiune stoc.
-3. Gestionare autori si categorii: CRUD pentru autori si CRUD pentru categorii.
-4. Imprumut si returnare: verificare stoc, limita de 5 carti per utilizator, returnare.
-5. Cautare si istoric: cautare carti, istoric imprumuturi per utilizator.
+## Funcționalități MVP (5)
+1. Gestionare utilizatori: creare, actualizare, listare, ștergere.
+2. Gestionare cărți: creare carte, asociere autor/categorie, gestiune stoc.
+3. Gestionare autori și categorii: CRUD pentru autori și CRUD pentru categorii.
+4. Împrumut și returnare: verificare stoc, limită de 5 cărți per utilizator, returnare (incrementare stoc).
+5. Căutare și istoric: căutare cărți, istoric împrumuturi per utilizator.
