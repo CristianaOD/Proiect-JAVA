@@ -112,7 +112,7 @@ class UtilizatorControllerTest {
         utilizator.setNume("Ana");
         utilizator.setPrenume("Pop");
         utilizator.setEmail("ana@test.com");
-        utilizator.setTelefon("0700");
+        utilizator.setTelefon("0700000000");
         utilizator.setAdresa(adresa);
         return utilizator;
     }
@@ -127,7 +127,7 @@ class UtilizatorControllerTest {
         request.setNume("Ana");
         request.setPrenume("Pop");
         request.setEmail("ana@test.com");
-        request.setTelefon("0700");
+        request.setTelefon("0700000000");
         request.setAdresa(adresaRequest);
         return request;
     }

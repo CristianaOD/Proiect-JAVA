@@ -29,7 +29,7 @@ class UtilizatorServiceTest {
 
     @Test
     void createSavesUtilizator() {
-        UtilizatorRequest request = createRequest("Ana", "Pop", "ana@test.com", "0700");
+        UtilizatorRequest request = createRequest("Ana", "Pop", "ana@test.com", "0700000000");
 
         when(utilizatorRepository.save(any(Utilizator.class))).thenAnswer(invocation -> invocation.getArgument(0));
 
@@ -45,7 +45,7 @@ class UtilizatorServiceTest {
         request.setNume("Ana");
         request.setPrenume("Pop");
         request.setEmail("ana@test.com");
-        request.setTelefon("0700");
+        request.setTelefon("0700000000");
         request.setAdresa(null);
 
         assertThatThrownBy(() -> utilizatorService.create(request))
@@ -62,7 +62,7 @@ class UtilizatorServiceTest {
         when(utilizatorRepository.findById(1)).thenReturn(Optional.of(existing));
         when(utilizatorRepository.save(any(Utilizator.class))).thenAnswer(invocation -> invocation.getArgument(0));
 
-        UtilizatorRequest request = createRequest("Ion", "Ionescu", "ion@test.com", "0711");
+        UtilizatorRequest request = createRequest("Ion", "Ionescu", "ion@test.com", "0712345678");
 
         Utilizator result = utilizatorService.update(1, request);
 
