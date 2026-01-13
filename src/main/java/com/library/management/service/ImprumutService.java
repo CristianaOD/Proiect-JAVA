@@ -38,6 +38,8 @@ public class ImprumutService {
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Imprumutul nu a fost gasit"));
     }
 
+    // Tranzactie pentru actualizarea stocului si salvarea imprumutului
+    // Ruleaza metoda in tranzactie pentru consistenta
     @Transactional
     public Imprumut imprumutaCarte(ImprumutRequest request) {
         Utilizator utilizator = utilizatorRepository.findById(request.getUtilizatorId())
@@ -64,6 +66,7 @@ public class ImprumutService {
         return imprumutRepository.save(imprumut);
     }
 
+    // Tranzactie pentru returnare si incrementare stoc
     @Transactional
     public Imprumut returneazaCarte(Integer imprumutId) {
         Imprumut imprumut = getById(imprumutId);

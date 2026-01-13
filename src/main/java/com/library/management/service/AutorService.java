@@ -8,6 +8,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
+// Service pentru logica de business a autorilor
+// Marcheaza clasa ca serviciu Spring pentru logica de business
 @Service
 public class AutorService {
 

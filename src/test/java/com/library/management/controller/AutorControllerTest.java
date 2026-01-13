@@ -23,6 +23,8 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
+// Teste de controller (layer web) folosind MockMvc si service mock-uit
+// Incarca doar layerul web pentru teste de controller
 @WebMvcTest(AutorController.class)
 @SuppressWarnings("deprecation")
 class AutorControllerTest {
@@ -36,6 +38,7 @@ class AutorControllerTest {
     @MockBean
     private AutorService autorService;
 
+    // Marcheaza metoda ca test JUnit
     @Test
     void getAllReturnsList() throws Exception {
         Autor autor = new Autor();

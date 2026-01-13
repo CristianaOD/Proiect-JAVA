@@ -24,8 +24,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+
 @RestController
 @RequestMapping("/categorii")
+// Grupare endpointuri in Swagger
 @Tag(name = "Categorii", description = "Operatii pentru categorii.")
 public class CategorieController {
 

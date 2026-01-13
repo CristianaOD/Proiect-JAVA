@@ -97,7 +97,7 @@ Body (împrumut):
 1) Creează autor și categorie.
 2) Creează carte cu `autorId` și `categorieId`.
 3) Creează utilizator cu adresa.
-4) Fă împrumut, apoi returnare.
+4) Fă împrumut, apoi returnează cartea.
 5) Verifică istoricul utilizatorului.
 
 ## Postman

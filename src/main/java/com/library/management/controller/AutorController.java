@@ -24,6 +24,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+// Controller REST pentru resursa Autori, prefixul rutei e setat prin @RequestMapping
+// Expune clasa ca controller REST
 @RestController
 @RequestMapping("/autori")
 @Tag(name = "Autori", description = "Operatii pentru autori.")
@@ -36,7 +38,9 @@ public class AutorController {
     }
 
     @GetMapping
+    // Descriere Swagger pentru endpoint
     @Operation(summary = "Lista autori", description = "Returneaza toti autorii.")
+    // Lista de raspunsuri posibile in Swagger
     @ApiResponses({
         @ApiResponse(
                 responseCode = "200",
@@ -93,6 +97,7 @@ public class AutorController {
     })
     public Autor update(
             @Parameter(description = "ID autor", example = "1") @PathVariable Integer id,
+            // Declanseaza validarea pe obiectul primit
             @Valid @RequestBody AutorRequest request
     ) {
         return autorService.update(id, request);

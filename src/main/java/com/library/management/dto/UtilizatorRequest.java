@@ -15,7 +15,6 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 public class UtilizatorRequest {
-
     @Schema(description = "Nume utilizator", example = "Pop")
     @NotBlank
     @Size(max = 45)

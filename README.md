@@ -1,4 +1,4 @@
-# LSistem de management al bibliotecii
+# Sistem de management al bibliotecii
 
 Aplicație backend pentru gestionarea utilizatorilor, cărților și împrumuturilor, cu evidența stocului și istoricului.
 
@@ -6,7 +6,7 @@ Aplicație backend pentru gestionarea utilizatorilor, cărților și împrumutur
 Documentul cu cerințe și funcționalități MVP este în `docs/requirements.md`.
 
 ## Tehnologii
-- Java 17+
+- Java 21
 - Spring Boot 3
 - Spring Data JPA + Validation
 - MySQL (runtime)

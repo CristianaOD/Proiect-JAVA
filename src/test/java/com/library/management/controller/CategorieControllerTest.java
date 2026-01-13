@@ -26,7 +26,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @WebMvcTest(CategorieController.class)
 @SuppressWarnings("deprecation")
 class CategorieControllerTest {
-
     @Autowired
     private MockMvc mockMvc;
 
